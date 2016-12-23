@@ -22,11 +22,12 @@ const AuthController = {
   },
 
   onClickLogout: function(event){
-
+    console.log('does this')
   }
 }
 
 module.exports = {
   User1:User1,
-  User2:User2
+  User2:User2,
+  AuthController:AuthController
 }

@@ -1,7 +1,8 @@
 var user = require('./user')
 
 console.log(user.User2['pass'])
-console.log(user.onClickLogin(event))
+console.log(user.AuthController.onClickLogin(event))
+console.log(user.AuthController.onClickLogout(event))
 
 const GameEngine = {
   gameOver: true,

@@ -2,7 +2,8 @@
 var user = require('./user')
 
 console.log(user.User2['pass'])
-console.log(user.onClickLogin(event))
+console.log(user.AuthController.onClickLogin(event))
+console.log(user.AuthController.onClickLogout(event))
 
 const GameEngine = {
   gameOver: true,
@@ -99,13 +100,14 @@ const AuthController = {
   },
 
   onClickLogout: function(event){
-
+    console.log('does this')
   }
 }
 
 module.exports = {
   User1:User1,
-  User2:User2
+  User2:User2,
+  AuthController:AuthController
 }
 
 },{}]},{},[1]);
