@@ -28,7 +28,14 @@ const GameEngine = {
   },
 
   makeMove: function(column) {
-
+    for(var i = 0; i < 6; i++){
+      if(this.board[`column${column}`][i] == null){
+        this.board[`column${column}`][i] = this.currentPlayer.pieceColor;
+        $(`.column${column} .row${i}`).css('backgroundColor', this.currentPlayer.pieceColor)
+        console.log(this.board)
+        break;
+      }
+    }
   },
 
   checkVictory: function(){
@@ -69,7 +76,10 @@ const Controller = {
 
   onClickBoardSpace: function(event){
     let $space = $(event.target)
-    console.log(GameEngine.validMove($space.data('column')))
+    // console.log(GameEngine.validMove($space.data('column')))
+    if(GameEngine.validMove($space.data('column'))){
+      GameEngine.makeMove($space.data('column'))
+    }
   },
 
   // onClickAIGame: function(event){}
