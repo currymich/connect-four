@@ -10,7 +10,7 @@ const User1 = {
 const User2 = {
   displayName: null,
   email: null,
-  pass: null,
+  pass: 'hello',
   winCount: 0,
   lossCount: 0,
   pieceColor: 'black'
@@ -18,10 +18,15 @@ const User2 = {
 
 const AuthController = {
   onClickLogin: function(event){
-
+    console.log('this works too')
   },
 
   onClickLogout: function(event){
 
   }
+}
+
+module.exports = {
+  User1:User1,
+  User2:User2
 }
