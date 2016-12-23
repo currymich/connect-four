@@ -21,8 +21,8 @@
 - Single player mode with AI
 
 ### Wireframes:
-[Gameboard](https://wireframe.cc/wld85r)
-[Potential login screen](https://wireframe.cc/Xkqi5X)
+- [Gameboard](https://wireframe.cc/wld85r)
+- [Potential login screen](https://wireframe.cc/Xkqi5X)
 
 
 ### Current, Hosted Build:
