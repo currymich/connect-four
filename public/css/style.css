@@ -43,54 +43,54 @@ h1 {
   background-color: #bbb;
 }
 
-.column1 .space {
+.column0 .space {
   left: 2.5vw;
 }
 
-.column2 .space {
+.column1 .space {
   left: 12.5vw;
 }
 
-.column3 .space {
+.column2 .space {
   left: 22.5vw;
 }
 
-.column4 .space {
+.column3 .space {
   left: 32.5vw;
 }
 
-.column5 .space {
+.column4 .space {
   left: 42.5vw;
 }
 
-.column6 .space {
+.column5 .space {
   left: 52.5vw;
 }
 
-.column7 .space {
+.column6 .space {
   left: 62.5vw;
 }
 
-.row1 {
+.row0 {
   top: 2.5vw;
 }
 
-.row2 {
+.row1 {
   top: 12.5vw;
 }
 
-.row3 {
+.row2 {
   top: 22.5vw;
 }
 
-.row4 {
+.row3 {
   top: 32.5vw;
 }
 
-.row5 {
+.row4 {
   top: 42.5vw;
 }
 
-.row6 {
+.row5 {
   top: 52.5vw;
 }
