@@ -21,10 +21,10 @@ header {
 }
 
 .piece {
-  width: 5vw;
-  height: 5vw;
-  margin: 0.75vw;
-  border-radius: 5vw;
+  width: 3em;
+  height: 3em;
+  margin: 0.375em;
+  border-radius: 3em;
   background-color: #bbb;
 }
 
