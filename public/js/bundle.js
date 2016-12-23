@@ -6,7 +6,7 @@ const GameEngine = {
   ai: false,
   currentPlayer: user.User1,
   board: {
-    column0: Array(6).fill(null),
+    column0: Array(6).fill('red'),
     column1: Array(6).fill(null),
     column2: Array(6).fill(null),
     column3: Array(6).fill(null),
@@ -19,11 +19,15 @@ const GameEngine = {
 
   },
 
-  validMove: function(position){
-
+  validMove: function(column){
+    if(this.board[`column${column}`].includes(null)){
+      return true;
+    } else {
+      return false;
+    }
   },
 
-  makeMove: function(position) {
+  makeMove: function(column) {
 
   },
 
@@ -65,10 +69,7 @@ const Controller = {
 
   onClickBoardSpace: function(event){
     let $space = $(event.target)
-    console.log($space)
-    $space.css('backgroundColor', 'red')
-    console.log("column: " + $space.data('column'))
-    console.log("row: " + $space.data('row'))
+    console.log(GameEngine.validMove($space.data('column')))
   },
 
   // onClickAIGame: function(event){}
