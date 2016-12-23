@@ -18,11 +18,9 @@ const User2 = {
 
 const AuthController = {
   onClickLogin: function(event){
-    console.log('this works too')
   },
 
   onClickLogout: function(event){
-    console.log('does this')
   }
 }
 

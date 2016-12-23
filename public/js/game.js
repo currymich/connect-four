@@ -1,9 +1,5 @@
 var user = require('./user')
 
-console.log(user.User2['pass'])
-console.log(user.AuthController.onClickLogin(event))
-console.log(user.AuthController.onClickLogout(event))
-
 const GameEngine = {
   gameOver: true,
   ai: false,
@@ -64,12 +60,22 @@ const ViewEngine = {
 
 const Controller = {
   onClickNewGame: function(event){
-
   },
 
   onClickBoardSpace: function(event){
-
+    let $space = $(event.target)
+    console.log($space)
+    $space.css('backgroundColor', 'red')
+    console.log("column: " + $space.data('column'))
+    console.log("row: " + $space.data('row'))
   },
 
   // onClickAIGame: function(event){}
 }
+
+//Connects buttons and board positions to respective actions in GameController
+$(document).ready(function(){
+  // $('#two_player').click(function(){GameController.onClickNewGame(event)})
+  // $('#AI').click(function(){GameController.onClickAIGame(event)})
+  $('.space').click(function(){Controller.onClickBoardSpace(event)})
+});
