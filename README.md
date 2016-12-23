@@ -26,4 +26,4 @@
 
 
 ### Current, Hosted Build:
-[Game!](https://connect-four-780e9.firebaseapp.com/)
+[Connect-Four](https://connect-four-780e9.firebaseapp.com/)
