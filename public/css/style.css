@@ -10,16 +10,30 @@ header {
   background-color: #ccc;
 }
 
-header h4 {
+.profile_pic {
+  max-height: 90%;
+  margin: 0.2em;
+}
+
+.username {
   font-size: 0.75em;
-  float: right;
   margin: 2em 1em;
 }
 
-header img {
+.piece {
+  width: 5vw;
+  height: 5vw;
+  margin: 0.75vw;
+  border-radius: 5vw;
+  background-color: #bbb;
+}
+
+#p1_pic, #p1_name, #p1_piece {
+  float: left;
+}
+
+#p2_pic, #p2_name, #p2_piece {
   float: right;
-  max-height: 90%;
-  margin: 0.2em;
 }
 
 h1 {
