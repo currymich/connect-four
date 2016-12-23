@@ -1,3 +1,96 @@
-p{
-  color: red;
+body {
+  box-sizing: border-box;
+  font-size: 20px;
+  background-color: #aaa;
+  text-align: center;
+}
+
+header {
+  height: 3.75em;
+  background-color: #ccc;
+}
+
+header h4 {
+  font-size: 0.75em;
+  float: right;
+  margin: 2em 1em;
+}
+
+header img {
+  float: right;
+  max-height: 90%;
+  margin: 0.2em;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+#board {
+  height: 65vw;
+  width: 75vw;
+  background-color: rgb(254,224,79);
+  position: relative;
+  left: 12.5vw;
+}
+
+.space {
+  width: 8vw;
+  height: 8vw;
+  margin: 1vw;
+  border-radius: 10vw;
+  position: absolute;
+  background-color: #bbb;
+}
+
+.column1 .space {
+  left: 2.5vw;
+}
+
+.column2 .space {
+  left: 12.5vw;
+}
+
+.column3 .space {
+  left: 22.5vw;
+}
+
+.column4 .space {
+  left: 32.5vw;
+}
+
+.column5 .space {
+  left: 42.5vw;
+}
+
+.column6 .space {
+  left: 52.5vw;
+}
+
+.column7 .space {
+  left: 62.5vw;
+}
+
+.row1 {
+  top: 2.5vw;
+}
+
+.row2 {
+  top: 12.5vw;
+}
+
+.row3 {
+  top: 22.5vw;
+}
+
+.row4 {
+  top: 32.5vw;
+}
+
+.row5 {
+  top: 42.5vw;
+}
+
+.row6 {
+  top: 52.5vw;
 }
