@@ -30,18 +30,75 @@ const GameEngine = {
     }
   },
 
-  makeMove: function(column) {
-    for(var row = 0; row < 6; row++){
-      if(this.board[`column${column}`][row] == null){
-        this.board[`column${column}`][row] = this.currentPlayer.pieceColor;
-        ViewEngine.updateSpace(column, row);
+  makeMove: function(columnNum) {
+    for(var rowNum = 0; rowNum < 6; rowNum++){
+      if(this.board[`column${columnNum}`][rowNum] == null){
+        this.board[`column${columnNum}`][rowNum] = this.currentPlayer.pieceColor;
+        ViewEngine.updateSpace(columnNum, rowNum);
         break;
       }
     }
     GameEngine.togglePlayer();
+    console.log(GameEngine.checkVictory());
+    
   },
 
   checkVictory: function(){
+    //check vertical 4-in-a-row
+    for(var rowNum = 0; rowNum+3 < 6; rowNum++){
+      for(var columnNum = 0; columnNum < 7; columnNum++){
+        var vertCheck = (this.board[`column${columnNum}`].slice(rowNum, rowNum+4))
+
+        if(vertCheck.every(function(n){return n == vertCheck[0] && n != null})){
+          return true;
+        }
+      }
+    }
+
+    //check horizontal 4-in-a-row
+    for(var rowNum = 0; rowNum < 6; rowNum++){
+      for(var columnNum = 0; columnNum+3 < 7; columnNum++){
+        var horzCheck = []
+        horzCheck[0] = this.board[`column${columnNum}`][rowNum];
+        horzCheck.push(this.board[`column${columnNum+1}`][rowNum]);
+        horzCheck.push(this.board[`column${columnNum+2}`][rowNum]);
+        horzCheck.push(this.board[`column${columnNum+3}`][rowNum]);
+
+        if(horzCheck.every(function(n){return n == horzCheck[0] && n != null})){
+          return true;
+        }
+      }
+    }
+
+    //check forward diagonal 4-in-a-row ie - /
+    for(var rowNum = 0; rowNum+3 < 6; rowNum++){
+      for(var columnNum = 0; columnNum+3 < 7; columnNum++){
+        var forwardDiagCheck = []
+        forwardDiagCheck[0] = this.board[`column${columnNum}`][rowNum];
+        forwardDiagCheck.push(this.board[`column${columnNum+1}`][rowNum+1]);
+        forwardDiagCheck.push(this.board[`column${columnNum+2}`][rowNum+2]);
+        forwardDiagCheck.push(this.board[`column${columnNum+3}`][rowNum+3]);
+        if(forwardDiagCheck.every(function(n){return n == forwardDiagCheck[0] && n != null})){
+          return true;
+        }
+      }
+    }
+
+    //check backward diagonal 4-in-a-row ie - \
+    for(var rowNum = 0; rowNum+3 < 6; rowNum++){
+      for(var columnNum = 0; columnNum+3 < 7; columnNum++){
+        var backDiagCheck = []
+        backDiagCheck[0] = this.board[`column${columnNum}`][rowNum+3];
+        backDiagCheck.push(this.board[`column${columnNum+1}`][rowNum+2]);
+        backDiagCheck.push(this.board[`column${columnNum+2}`][rowNum+1]);
+        backDiagCheck.push(this.board[`column${columnNum+3}`][rowNum]);
+        if(backDiagCheck.every(function(n){return n == backDiagCheck[0] && n != null})){
+          return true;
+        }
+      }
+    }
+
+    return false;
 
   },
 
@@ -60,8 +117,8 @@ const GameEngine = {
 }
 
 const ViewEngine = {
-  updateSpace: function(column, row){
-    $(`.column${column} .row${row}`).css('backgroundColor', GameEngine.currentPlayer.pieceColor)
+  updateSpace: function(columnNum, rowNum){
+    $(`.column${columnNum} .row${rowNum}`).css('backgroundColor', GameEngine.currentPlayer.pieceColor)
   },
 
   flashMessage: function(msg){
