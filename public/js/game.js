@@ -5,7 +5,7 @@ const GameEngine = {
   ai: false,
   currentPlayer: user.User1,
   board: {
-    column0: Array(6).fill('red'),
+    column0: Array(6).fill(null),
     column1: Array(6).fill(null),
     column2: Array(6).fill(null),
     column3: Array(6).fill(null),
@@ -15,7 +15,11 @@ const GameEngine = {
   },
 
   togglePlayer: function(){
-
+    if(this.currentPlayer == user.User1){
+      this.currentPlayer = user.User2;
+    } else {
+      this.currentPlayer = user.User1;
+    }
   },
 
   validMove: function(column){
@@ -27,14 +31,14 @@ const GameEngine = {
   },
 
   makeMove: function(column) {
-    for(var i = 0; i < 6; i++){
-      if(this.board[`column${column}`][i] == null){
-        this.board[`column${column}`][i] = this.currentPlayer.pieceColor;
-        $(`.column${column} .row${i}`).css('backgroundColor', this.currentPlayer.pieceColor)
-        console.log(this.board)
+    for(var row = 0; row < 6; row++){
+      if(this.board[`column${column}`][row] == null){
+        this.board[`column${column}`][row] = this.currentPlayer.pieceColor;
+        ViewEngine.updateSpace(column, row);
         break;
       }
     }
+    GameEngine.togglePlayer();
   },
 
   checkVictory: function(){
@@ -56,8 +60,8 @@ const GameEngine = {
 }
 
 const ViewEngine = {
-  updateSpace: function(){
-
+  updateSpace: function(column, row){
+    $(`.column${column} .row${row}`).css('backgroundColor', GameEngine.currentPlayer.pieceColor)
   },
 
   flashMessage: function(msg){
