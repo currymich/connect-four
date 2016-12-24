@@ -23,8 +23,8 @@ const GameEngine = {
     }
   },
 
-  validMove: function(column){
-    if(this.board[`column${column}`].includes(null) && this.gameOver == false){
+  validMove: function(columnNum){
+    if(this.board[`column${columnNum}`].includes(null) && this.gameOver == false){
       return true;
     } else {
       return false;
@@ -42,21 +42,26 @@ const GameEngine = {
 
     switch (GameEngine.checkVictory()) {
       case true:
+        console.log('gameOver')
         GameEngine.gameOver = true;
         // ViewEngine.flashMessage('win');
         // GameEngine.incrementTally();
         break;
-      // case null:
-      //   GameEngine.gameOver = true;
-      //   ViewEngine.flashMessage('draw');
-      //   GameEngine.toggleCurrentPlayer();
-      //   break;
+      case null:
+        console.log('draw')
+        GameEngine.gameOver = true;
+        // ViewEngine.flashMessage('draw');
+        GameEngine.togglePlayer();
+        break;
       default:
+        console.log('next player')
         GameEngine.togglePlayer();
     }
   },
 
   checkVictory: function(){
+    //Idea for "every" function check came from first answer here: http://stackoverflow.com/questions/29711396/can-you-compare-multiple-variables-to-see-if-they-all-equal-the-same-value-in-js
+
     //check vertical 4-in-a-row
     for(var rowNum = 0; rowNum+3 < 6; rowNum++){
       for(var columnNum = 0; columnNum < 7; columnNum++){
@@ -111,8 +116,21 @@ const GameEngine = {
       }
     }
 
-    return false;
+    var drawCheck = true;
+    for(var columnNum = 0; columnNum < 7; columnNum++){
+      //if there is still a single null on the board, drawCheck will remain
+      //true and victory check will return null to signal this, otherwise
+      //victory check will return false to signal the game is not over, keep playing
+      if(this.board[`column${columnNum}`].includes(null)){
+        drawCheck = false;
+      }
+    }
 
+    if(drawCheck == true){
+      return null;
+    } else {
+      return false;
+    }
   },
 
   updateWins: function(){
