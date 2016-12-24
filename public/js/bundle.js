@@ -2,7 +2,7 @@
 var user = require('./user')
 
 const GameEngine = {
-  gameOver: true,
+  gameOver: false,
   ai: false,
   currentPlayer: user.User1,
   board: {
@@ -24,7 +24,7 @@ const GameEngine = {
   },
 
   validMove: function(column){
-    if(this.board[`column${column}`].includes(null)){
+    if(this.board[`column${column}`].includes(null) && this.gameOver == false){
       return true;
     } else {
       return false;
@@ -39,36 +39,49 @@ const GameEngine = {
         break;
       }
     }
-    GameEngine.togglePlayer();
-    console.log(GameEngine.checkVictory());
+
+    switch (GameEngine.checkVictory()) {
+      case true:
+        GameEngine.gameOver = true;
+        // ViewEngine.flashMessage('win');
+        // GameEngine.incrementTally();
+        break;
+      // case null:
+      //   GameEngine.gameOver = true;
+      //   ViewEngine.flashMessage('draw');
+      //   GameEngine.toggleCurrentPlayer();
+      //   break;
+      default:
+        GameEngine.togglePlayer();
+    }
   },
 
   checkVictory: function(){
-    // //check vertical 4-in-a-row
-    // for(var rowNum = 0; rowNum+3 < 6; rowNum++){
-    //   for(var columnNum = 0; columnNum < 7; columnNum++){
-    //     var vertCheck = (this.board[`column${columnNum}`].slice(rowNum, rowNum+4))
-    //
-    //     if(vertCheck.every(function(n){return n == vertCheck[0] && n != null})){
-    //       return true;
-    //     }
-    //   }
-    // }
-    //
-    // //check horizontal 4-in-a-row
-    // for(var rowNum = 0; rowNum < 6; rowNum++){
-    //   for(var columnNum = 0; columnNum+3 < 7; columnNum++){
-    //     var horzCheck = []
-    //     horzCheck[0] = this.board[`column${columnNum}`][rowNum];
-    //     horzCheck.push(this.board[`column${columnNum+1}`][rowNum]);
-    //     horzCheck.push(this.board[`column${columnNum+2}`][rowNum]);
-    //     horzCheck.push(this.board[`column${columnNum+3}`][rowNum]);
-    //
-    //     if(horzCheck.every(function(n){return n == horzCheck[0] && n != null})){
-    //       return true;
-    //     }
-    //   }
-    // }
+    //check vertical 4-in-a-row
+    for(var rowNum = 0; rowNum+3 < 6; rowNum++){
+      for(var columnNum = 0; columnNum < 7; columnNum++){
+        var vertCheck = (this.board[`column${columnNum}`].slice(rowNum, rowNum+4))
+
+        if(vertCheck.every(function(n){return n == vertCheck[0] && n != null})){
+          return true;
+        }
+      }
+    }
+
+    //check horizontal 4-in-a-row
+    for(var rowNum = 0; rowNum < 6; rowNum++){
+      for(var columnNum = 0; columnNum+3 < 7; columnNum++){
+        var horzCheck = []
+        horzCheck[0] = this.board[`column${columnNum}`][rowNum];
+        horzCheck.push(this.board[`column${columnNum+1}`][rowNum]);
+        horzCheck.push(this.board[`column${columnNum+2}`][rowNum]);
+        horzCheck.push(this.board[`column${columnNum+3}`][rowNum]);
+
+        if(horzCheck.every(function(n){return n == horzCheck[0] && n != null})){
+          return true;
+        }
+      }
+    }
 
     //check forward diagonal 4-in-a-row ie - /
     for(var rowNum = 0; rowNum+3 < 6; rowNum++){

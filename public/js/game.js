@@ -1,7 +1,7 @@
 var user = require('./user')
 
 const GameEngine = {
-  gameOver: true,
+  gameOver: false,
   ai: false,
   currentPlayer: user.User1,
   board: {
@@ -23,7 +23,7 @@ const GameEngine = {
   },
 
   validMove: function(column){
-    if(this.board[`column${column}`].includes(null)){
+    if(this.board[`column${column}`].includes(null) && this.gameOver == false){
       return true;
     } else {
       return false;
@@ -38,9 +38,21 @@ const GameEngine = {
         break;
       }
     }
-    GameEngine.togglePlayer();
-    console.log(GameEngine.checkVictory());
-    
+
+    switch (GameEngine.checkVictory()) {
+      case true:
+        GameEngine.gameOver = true;
+        // ViewEngine.flashMessage('win');
+        // GameEngine.incrementTally();
+        break;
+      // case null:
+      //   GameEngine.gameOver = true;
+      //   ViewEngine.flashMessage('draw');
+      //   GameEngine.toggleCurrentPlayer();
+      //   break;
+      default:
+        GameEngine.togglePlayer();
+    }
   },
 
   checkVictory: function(){
