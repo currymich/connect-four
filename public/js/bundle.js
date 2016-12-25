@@ -42,15 +42,15 @@ const GameEngine = {
 
     switch (GameEngine.checkVictory()) {
       case true:
-        console.log('gameOver')
+        console.log('win')
         GameEngine.gameOver = true;
-        // ViewEngine.flashMessage('win');
+        ViewEngine.flashMessage('win');
         // GameEngine.incrementTally();
         break;
       case null:
         console.log('draw')
         GameEngine.gameOver = true;
-        // ViewEngine.flashMessage('draw');
+        ViewEngine.flashMessage('draw');
         GameEngine.togglePlayer();
         break;
       default:
@@ -153,7 +153,11 @@ const ViewEngine = {
   },
 
   flashMessage: function(msg){
-
+    if(msg == 'win'){
+      $('#flashMsg').html(`Player <span>${GameEngine.currentPlayer.displayName}</span> has won!`)
+    } else if (msg == 'draw') {
+      $('#flashMsg').html(`This match is a draw!`)
+    }
   },
 
   resetBoard: function(){
