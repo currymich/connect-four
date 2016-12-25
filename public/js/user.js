@@ -1,5 +1,5 @@
 const User1 = {
-  displayName: null,
+  displayName: 'Player 1',
   email: null,
   pass: null,
   winCount: 0,
@@ -8,7 +8,7 @@ const User1 = {
 }
 
 const User2 = {
-  displayName: null,
+  displayName: 'Player 2',
   email: null,
   pass: 'hello',
   winCount: 0,

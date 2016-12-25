@@ -44,6 +44,7 @@ const GameEngine = {
         console.log('win')
         GameEngine.gameOver = true;
         ViewEngine.flashMessage('win');
+        $('#newGame').css('display', 'block')
         // GameEngine.incrementTally();
         break;
       case null:
@@ -137,7 +138,18 @@ const GameEngine = {
   },
 
   resetGame: function(){
-
+    GameEngine.gameOver = false;
+    GameEngine.board = {
+      column0: Array(6).fill(null),
+      column1: Array(6).fill(null),
+      column2: Array(6).fill(null),
+      column3: Array(6).fill(null),
+      column4: Array(6).fill(null),
+      column5: Array(6).fill(null),
+      column6: Array(6).fill(null)
+    };
+    ViewEngine.flashMessage('clear');
+    ViewEngine.resetBoard();
   },
 
   // aiMove: function(){},
@@ -153,19 +165,23 @@ const ViewEngine = {
 
   flashMessage: function(msg){
     if(msg == 'win'){
-      $('#flashMsg').html(`Player <span>${GameEngine.currentPlayer.displayName}</span> has won!`)
+      $('#flashMsg').html(`${GameEngine.currentPlayer.displayName} has won!`)
     } else if (msg == 'draw') {
       $('#flashMsg').html(`This match is a draw!`)
+    } else if (msg == 'clear') {
+      $('#flashMsg').html('')
     }
   },
 
   resetBoard: function(){
-
+    $('.space').css('backgroundColor', '#bbb')
+    $('#newGame').css('display', 'none')
   },
 }
 
 const Controller = {
   onClickNewGame: function(event){
+    GameEngine.resetGame();
   },
 
   onClickBoardSpace: function(event){
@@ -181,7 +197,7 @@ const Controller = {
 
 //Connects buttons and board positions to respective actions in GameController
 $(document).ready(function(){
-  // $('#two_player').click(function(){GameController.onClickNewGame(event)})
+  $('#newGame').click(function(){Controller.onClickNewGame(event)})
   // $('#AI').click(function(){GameController.onClickAIGame(event)})
   $('.space').click(function(){Controller.onClickBoardSpace(event)})
 });

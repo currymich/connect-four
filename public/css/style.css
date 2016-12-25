@@ -57,6 +57,17 @@ h1 {
   background-color: #bbb;
 }
 
+#flashMsg {
+  font-size: 2em;
+  margin: 1em;
+}
+
+#newGame {
+  display: none;
+  font-size: 0.75em;
+  margin: 0 auto;
+}
+
 .column0 .space {
   left: 2.5vw;
 }
