@@ -46,13 +46,14 @@ const GameEngine = {
         GameEngine.gameOver = true;
         ViewEngine.flashMessage('win');
         $('#newGame').css('display', 'block')
-        // GameEngine.incrementTally();
+        GameEngine.updateWins();
         break;
       case null:
         console.log('draw')
         GameEngine.gameOver = true;
         ViewEngine.flashMessage('draw');
         GameEngine.togglePlayer();
+        $('#newGame').css('display', 'block')
         break;
       default:
         console.log('next player')
@@ -135,7 +136,16 @@ const GameEngine = {
   },
 
   updateWins: function(){
+    if(GameEngine.currentPlayer == user.User1){
+      user.User1.winCount++;
+      user.User2.lossCount++;
+    } else if (GameEngine.currentPlayer == user.User2) {
+      user.User2.winCount++;
+      user.User1.lossCount++;
+    }
 
+    console.log(user.User1)
+    console.log(user.User2)
   },
 
   resetGame: function(){
