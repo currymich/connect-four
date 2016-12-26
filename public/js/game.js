@@ -142,9 +142,6 @@ const GameEngine = {
       user.User2.winCount++;
       user.User1.lossCount++;
     }
-
-    console.log(user.User1)
-    console.log(user.User2)
   },
 
   resetGame: function(){
@@ -189,6 +186,9 @@ const ViewEngine = {
     $('#newGame').css('display', 'none')
   },
 
+  turnIndicator: function(columnNum, color){
+    $(`#addPiece .column${columnNum}`).css('backgroundColor', color)
+  }
 }
 
 const Controller = {
@@ -211,12 +211,17 @@ const Controller = {
 $(document).ready(function(){
   $('#newGame').click(function(){Controller.onClickNewGame(event)})
   // $('#AI').click(function(){GameController.onClickAIGame(event)})
-  $('.space').click(function(){Controller.onClickBoardSpace(event)})
+  $('.space').click(function(){
+    Controller.onClickBoardSpace(event);
+    var columnNum = event.target.dataset.column;
+    ViewEngine.turnIndicator(columnNum, GameEngine.currentPlayer.pieceColor)
+  })
   $('#board > div').hover(function(event) {
       var columnNum = event.target.dataset.column;
       if(GameEngine.validMove(columnNum))
-      $(`#addPiece .column${columnNum}`).css('backgroundColor', GameEngine.currentPlayer.pieceColor)
-    }, function() {
-      $('#addPiece .space').css('backgroundColor', '#aaa')
+      ViewEngine.turnIndicator(columnNum, GameEngine.currentPlayer.pieceColor)
+    }, function(event) {
+      var columnNum = event.target.dataset.column;
+      ViewEngine.turnIndicator(columnNum, '#aaa')
   });
 });
