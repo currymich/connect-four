@@ -186,7 +186,7 @@ const ViewEngine = {
   },
 
   resetBoard: function(){
-    $('.space').css('backgroundColor', '#bbb')
+    $('#board .space').css('backgroundColor', '#bbb')
     $('#newGame').css('display', 'none')
   },
 
