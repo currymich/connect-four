@@ -163,6 +163,7 @@ const GameEngine = {
     ViewEngine.resetBoard();
   },
 
+
   // aiMove: function(){},
 
   // aiDecide: function(){},
@@ -188,6 +189,7 @@ const ViewEngine = {
     $('.space').css('backgroundColor', '#bbb')
     $('#newGame').css('display', 'none')
   },
+
 }
 
 const Controller = {
@@ -211,6 +213,13 @@ $(document).ready(function(){
   $('#newGame').click(function(){Controller.onClickNewGame(event)})
   // $('#AI').click(function(){GameController.onClickAIGame(event)})
   $('.space').click(function(){Controller.onClickBoardSpace(event)})
+  $('#board > div').hover(function(event) {
+      var columnNum = event.target.dataset.column;
+      if(GameEngine.validMove(columnNum))
+      $(`#addPiece .column${columnNum}`).css('backgroundColor', GameEngine.currentPlayer.pieceColor)
+    }, function() {
+      $('#addPiece .space').css('backgroundColor', '#aaa')
+  });
 });
 
 },{"./user":2}],2:[function(require,module,exports){

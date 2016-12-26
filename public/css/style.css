@@ -40,12 +40,19 @@ h1 {
   font-size: 3em;
 }
 
+#board, #addPiece {
+  width: 75vw;
+  left: 12.5vw;
+  position: relative;
+}
+
 #board {
   height: 65vw;
-  width: 75vw;
   background-color: rgb(254,224,79);
-  position: relative;
-  left: 12.5vw;
+}
+
+#addPiece {
+  height: 10vw;
 }
 
 .space {
@@ -54,7 +61,15 @@ h1 {
   margin: 1vw;
   border-radius: 10vw;
   position: absolute;
+}
+
+#board .space {
   background-color: #bbb;
+}
+
+#addPiece .space {
+  background-color: #aaa;
+  transition: all 0.06125s;
 }
 
 #flashMsg {
@@ -68,31 +83,31 @@ h1 {
   margin: 0 auto;
 }
 
-.column0 .space {
+.column0 .space, #addPiece .column0 {
   left: 2.5vw;
 }
 
-.column1 .space {
+.column1 .space, #addPiece .column1 {
   left: 12.5vw;
 }
 
-.column2 .space {
+.column2 .space, #addPiece .column2 {
   left: 22.5vw;
 }
 
-.column3 .space {
+.column3 .space, #addPiece .column3 {
   left: 32.5vw;
 }
 
-.column4 .space {
+.column4 .space, #addPiece .column4 {
   left: 42.5vw;
 }
 
-.column5 .space {
+.column5 .space, #addPiece .column5 {
   left: 52.5vw;
 }
 
-.column6 .space {
+.column6 .space, #addPiece .column6 {
   left: 62.5vw;
 }
 
