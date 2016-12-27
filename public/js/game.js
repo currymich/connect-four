@@ -168,7 +168,7 @@ const GameEngine = {
 
 const ViewEngine = {
   updateSpace: function(columnNum, rowNum){
-    $(`.column${columnNum} .row${rowNum}`).css('backgroundColor', GameEngine.currentPlayer.pieceColor)
+    $(`[data-column="${columnNum}"][data-row="${rowNum}"]`).css('backgroundColor', GameEngine.currentPlayer.pieceColor)
   },
 
   flashMessage: function(msg){
@@ -187,7 +187,7 @@ const ViewEngine = {
   },
 
   turnIndicator: function(columnNum, color){
-    $(`#addPiece .column${columnNum}`).css('backgroundColor', color)
+    $(`#addPiece [data-column="${columnNum}`).css('backgroundColor', color)
   }
 }
 
@@ -214,10 +214,10 @@ const Controller = {
 $(document).ready(function(){
   $('#newGame').click(function(){Controller.onClickNewGame(event)})
   // $('#AI').click(function(){GameController.onClickAIGame(event)})
-  $('.space').click(function(){
+  $('#board .space').click(function(){
     Controller.onClickBoardSpace(event);
   })
-  $('#board > div').hover(function(event) {
+  $('#board .space').hover(function(event) {
       var columnNum = event.target.dataset.column;
       if(GameEngine.validMove(columnNum))
       ViewEngine.turnIndicator(columnNum, GameEngine.currentPlayer.pieceColor)
