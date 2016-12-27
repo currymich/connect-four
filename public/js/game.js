@@ -222,6 +222,6 @@ $(document).ready(function(){
       if(GameEngine.validMove(columnNum))
       ViewEngine.turnIndicator(columnNum, GameEngine.currentPlayer.pieceColor)
     }, function(event) {
-      ViewEngine.turnIndicator(event.target.dataset.column, '#aaa')
+      ViewEngine.turnIndicator(event.target.dataset.column, '#fff')
   });
 });

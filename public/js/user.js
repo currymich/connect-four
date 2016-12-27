@@ -41,6 +41,7 @@ const ViewEngine = {
 $(document).ready(function(){
   ViewEngine.updateHeader();
 
+
 });
 
 module.exports = {
