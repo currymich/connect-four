@@ -202,6 +202,9 @@ const Controller = {
     if(GameEngine.validMove($space.data('column'))){
       GameEngine.makeMove($space.data('column'))
     }
+    var columnNum = event.target.dataset.column;
+    if(GameEngine.validMove(columnNum))
+    ViewEngine.turnIndicator(columnNum, GameEngine.currentPlayer.pieceColor)
   },
 
   // onClickAIGame: function(event){}
@@ -213,15 +216,12 @@ $(document).ready(function(){
   // $('#AI').click(function(){GameController.onClickAIGame(event)})
   $('.space').click(function(){
     Controller.onClickBoardSpace(event);
-    var columnNum = event.target.dataset.column;
-    ViewEngine.turnIndicator(columnNum, GameEngine.currentPlayer.pieceColor)
   })
   $('#board > div').hover(function(event) {
       var columnNum = event.target.dataset.column;
       if(GameEngine.validMove(columnNum))
       ViewEngine.turnIndicator(columnNum, GameEngine.currentPlayer.pieceColor)
     }, function(event) {
-      var columnNum = event.target.dataset.column;
-      ViewEngine.turnIndicator(columnNum, '#aaa')
+      ViewEngine.turnIndicator(event.target.dataset.column, '#aaa')
   });
 });

@@ -4,16 +4,18 @@ const User1 = {
   pass: null,
   winCount: 0,
   lossCount: 0,
-  pieceColor: '#ccffcc'
+  pieceColor: 'red',
+  profilePic: './img/profile_pic.jpg'
 }
 
 const User2 = {
-  displayName: 'Player 2',
+  displayName: 'Mike',
   email: null,
   pass: 'hello',
   winCount: 0,
   lossCount: 0,
-  pieceColor: 'black'
+  pieceColor: 'black',
+  profilePic: './img/me.jpg'
 }
 
 const AuthController = {
@@ -24,9 +26,21 @@ const AuthController = {
   }
 }
 
+const ViewEngine = {
+  updateHeader: function(){
+    $('#p1_piece').css('backgroundColor', User1.pieceColor);
+    $('#p2_piece').css('backgroundColor', User2.pieceColor);
+    $('#p1_pic').attr('src', User1.profilePic);
+    $('#p2_pic').attr('src', User2.profilePic);
+    $('#p1_name').html(`${User1.displayName}`);
+    $('#p2_name').html(`${User2.displayName}`);
+  }
+}
+
+
 $(document).ready(function(){
-  $('#p1_piece').css('backgroundColor', User1.pieceColor)
-  $('#p2_piece').css('backgroundColor', User2.pieceColor)
+  ViewEngine.updateHeader();
+
 });
 
 module.exports = {
