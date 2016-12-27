@@ -1,3 +1,13 @@
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBI6sUQ6PCxQrvWGpAp8TKsO9FYi_iULCI",
+  authDomain: "connect-four-780e9.firebaseapp.com",
+  databaseURL: "https://connect-four-780e9.firebaseio.com",
+  storageBucket: "connect-four-780e9.appspot.com",
+  messagingSenderId: "857718574300"
+};
+firebase.initializeApp(config);
+
 const User1 = {
   displayName: 'Player 1',
   email: null,
@@ -37,10 +47,41 @@ const ViewEngine = {
   }
 }
 
-
 $(document).ready(function(){
   ViewEngine.updateHeader();
 
+//https://youtu.be/-OKrloDzGpU?list=PLl-K7zZEsYLmnJ_FpMOZgyg6XcIGBu2OX
+  $('#loginBtn').click(function(event){
+    const email = $('#emailAddr').val();
+    const pass = $('#password').val();
+    const auth = firebase.auth();
+
+    const promise = auth.signInWithEmailAndPassword(email, pass);
+    promise.catch(function(error){console.log(error.message)});
+  });
+
+  $('#signUpBtn').click(function(event){
+    const email = $('#emailAddr').val();
+    const pass = $('#password').val();
+    const auth = firebase.auth();
+
+    const promise = auth.createUserWithEmailAndPassword(email, pass);
+    promise.catch(function(error){console.log(error.message)});
+  });
+
+  $('#logoutBtn').click(function(event){
+    firebase.auth().signOut();
+  });
+
+  firebase.auth().onAuthStateChanged(function(firebaseUser){
+    if(firebaseUser){
+      console.log(firebaseUser);
+      $('#logoutBtn').removeClass('hide');
+    } else {
+      console.log('not logged in')
+      $('#logoutBtn').addClass('hide');
+    }
+  });
 
 });
 

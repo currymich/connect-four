@@ -75,12 +75,8 @@ h1 {
 
 #flashMsg {
   font-size: 2em;
+  font-family: 'Roboto';
   margin: 1em;
-}
-
-#newGame {
-  display: none;
-  margin: 0 auto;
 }
 
 .wrapper {
@@ -98,7 +94,7 @@ h1 {
 
 .btn {
   font-size: 0.75em;
-  width: 5em;
+  width: 7.5em;
   padding: 0.5em 0.25em;
   margin: .5em;
   float: left;
@@ -112,7 +108,18 @@ h1 {
 
 .btn:nth-of-type(2) {
   background-color: #fff;
-  color: rgb(18, 61, 158);
+  font-weight: bold;
+  color: rgb(40, 101, 145);
+}
+
+.hide {
+  visibility: hidden;
+}
+
+#newGame {
+  display: none;
+  float: none;
+  margin: 0 auto;
 }
 
 .column0 .space, #addPiece .column0 {
