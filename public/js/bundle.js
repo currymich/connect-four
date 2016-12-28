@@ -188,7 +188,8 @@ const ViewEngine = {
   },
 
   turnIndicator: function(columnNum, color){
-    $(`#addPiece [data-column="${columnNum}`).css('backgroundColor', color)
+    $(`#addPiece [data-column="${columnNum}"]`).css('backgroundColor', color)
+    $('#turnDisplay .space').css('backgroundColor', color)
   }
 }
 

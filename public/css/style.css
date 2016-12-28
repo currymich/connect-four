@@ -2,7 +2,6 @@ body {
   box-sizing: border-box;
   font-size: 20px;
   text-align: center;
-  background-color: #aaa;
 }
 
 header {
@@ -42,13 +41,32 @@ h1 {
   font-family: 'Roboto';
 }
 
+#turnDisplay {
+  margin: 1em auto;
+  display: none;
+}
+
+#turnDisplay p {
+  font-size: 1em;
+  display: inline;
+  padding: 0.25em;
+}
+
+#turnDisplay .space {
+  height: 1.5em;
+  width: 1.5em;
+  border-radius: 1.5em;
+  display: inline-block;
+  margin: 0 auto;
+}
+
 #addPiece {
   height: 10vw;
   max-height: 4em;
   width: 75vw;
   max-width: 30em;
   margin: 0 auto;
-  background-color: #ccc;
+  display: block;
 }
 
 #addPiece .space {
@@ -125,12 +143,45 @@ h1 {
   color: rgb(40, 101, 145);
 }
 
-.hide {
-  visibility: hidden;
-}
-
 #newGame {
   display: none;
   float: none;
   margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+  h1 {
+    font-size: 1.5em;
+  }
+  header {
+    height: 2.25em;
+  }
+  #turnDisplay {
+    display: block;
+  }
+  .username {
+    margin: 0.9em 1em;
+  }
+  .piece {
+    width: 1.5em;
+    height: 1.5em;
+    margin: 0.3em;
+  }
+  .profile_pic {
+    max-height: 90%;
+    margin: 0.1em;
+  }
+  #addPiece {
+    display: none;
+  }
+  #board {
+    height: 13em;
+    width: 15em;
+  }
+  #flashMsg {
+    font-size: 1em;
+  }
+  .btn {
+    font-size: 0.5em;
+  }
 }
