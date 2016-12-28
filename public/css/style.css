@@ -36,7 +36,7 @@ header {
   float: right;
 }
 
-h1 {
+#banner {
   font-size: 3em;
   font-family: 'Roboto';
 }
@@ -151,7 +151,7 @@ h1 {
 }
 
 @media (max-width: 750px) {
-  h1 {
+  #banner {
     font-size: 1.5em;
   }
   header {
@@ -189,12 +189,34 @@ h1 {
   .profile_pic {
     display: none;
   }
+
+}
+
+@media (max-height: 400px){
+  #banner {
+    margin: -1.25em auto 0.15em auto;
+  }
 }
 
 @media (max-width: 750px) and (orientation: landscape){
   #turnDisplay {
     float: left;
-    display: block;
-    margin: 0.5em;
+    position: absolute;
+    top: 150px;
+    left: 10px;
+    font-size: 0.75em;
+  }
+  #flashMsg {
+    position: absolute;
+    width: 75px;
+    top: 150px;
+    right: 10px;
+    font-size: 0.75em;
+  }
+  #newGame {
+    position: absolute;
+    top: 215px;
+    right: 25px;
+    font-size: 0.5em;
   }
 }
