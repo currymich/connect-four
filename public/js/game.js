@@ -1,9 +1,28 @@
-var user = require('./user')
+// Initialize Firebase
+var config = {
+  apiKey: "AIzaSyBI6sUQ6PCxQrvWGpAp8TKsO9FYi_iULCI",
+  authDomain: "connect-four-780e9.firebaseapp.com",
+  databaseURL: "https://connect-four-780e9.firebaseio.com",
+  storageBucket: "connect-four-780e9.appspot.com",
+  messagingSenderId: "857718574300"
+};
+firebase.initializeApp(config);
+
+const AI = {
+  email: 'Computer',
+  winCount: 0,
+  lossCount: 0,
+  pieceColor: 'red',
+  profilePic: './img/computer.jpg'
+}
+
+var ActivePlayer = {}
+var userId;
 
 const GameEngine = {
   gameOver: false,
   ai: false,
-  currentPlayer: user.User1,
+  currentPlayer: ActivePlayer,
   board: {
     column0: Array(6).fill(null),
     column1: Array(6).fill(null),
@@ -15,10 +34,10 @@ const GameEngine = {
   },
 
   togglePlayer: function(){
-    if(this.currentPlayer == user.User1){
-      this.currentPlayer = user.User2;
+    if(this.currentPlayer == ActivePlayer){
+      this.currentPlayer = AI;
     } else {
-      this.currentPlayer = user.User1;
+      this.currentPlayer = ActivePlayer;
     }
   },
 
@@ -135,13 +154,17 @@ const GameEngine = {
   },
 
   updateWins: function(){
-    if(GameEngine.currentPlayer == user.User1){
-      user.User1.winCount++;
-      user.User2.lossCount++;
-    } else if (GameEngine.currentPlayer == user.User2) {
-      user.User2.winCount++;
-      user.User1.lossCount++;
+    var updates = {};
+    if(GameEngine.currentPlayer == ActivePlayer){
+      ActivePlayer.winCount++;
+      updates['/users/' + userId + '/winCount'] = ActivePlayer.winCount;
+      AI.lossCount++;
+    } else if (GameEngine.currentPlayer == AI) {
+      AI.winCount++;
+      ActivePlayer.lossCount++;
+      updates['/users/' + userId + '/lossCount'] = ActivePlayer.lossCount;
     }
+    return firebase.database().ref().update(updates);
   },
 
   resetGame: function(){
@@ -160,7 +183,9 @@ const GameEngine = {
   },
 
 
-  // aiMove: function(){},
+  // aiMove: function(){
+  //
+  // },
 
   // aiDecide: function(){},
 
@@ -173,7 +198,7 @@ const ViewEngine = {
 
   flashMessage: function(msg){
     if(msg == 'win'){
-      $('#flashMsg').html(`${GameEngine.currentPlayer.displayName} has won!`)
+      $('#flashMsg').html(`${GameEngine.currentPlayer.email} has won!`)
     } else if (msg == 'draw') {
       $('#flashMsg').html(`This match is a draw!`)
     } else if (msg == 'clear') {
@@ -189,7 +214,16 @@ const ViewEngine = {
   turnIndicator: function(columnNum, color){
     $(`#addPiece [data-column="${columnNum}"]`).css('backgroundColor', color)
     $('#turnDisplay .space').css('backgroundColor', color)
-  }
+  },
+
+  updateHeader: function(){
+    $('#p1_piece').css('backgroundColor', ActivePlayer.pieceColor);
+    $('#p2_piece').css('backgroundColor', AI.pieceColor);
+    $('#p1_pic').attr('src', ActivePlayer.profilePic);
+    $('#p2_pic').attr('src', AI.profilePic);
+    $('#p1_name').html(`${ActivePlayer.email}`);
+    $('#p2_name').html(`${AI.email}`);
+  },
 }
 
 const Controller = {
@@ -211,13 +245,87 @@ const Controller = {
   // onClickAIGame: function(event){}
 }
 
+const AuthController = {
+  onClickLogin: function(event){
+    const email = $('#emailAddr').val();
+    $('#emailAddr').val('');
+    const pass = $('#password').val();
+    $('#password').val('');
+    const auth = firebase.auth();
+
+    const promise = auth.signInWithEmailAndPassword(email, pass);
+    promise.catch(function(error){console.log(error.message)});
+  },
+
+  onClickSignup: function(event){
+    const email = $('#emailAddr').val();
+    $('#emailAddr').val('');
+    const pass = $('#password').val();
+    $('#password').val('');
+    const auth = firebase.auth();
+
+    const promise = auth.createUserWithEmailAndPassword(email, pass);
+    promise.catch(function(error){console.log(error.message)});
+
+    promise.then(function(){
+      var userId = auth.currentUser.uid;
+      AuthController.addUserToDatabase(email, userId);
+    });
+  },
+
+  onClickLogout: function(event){
+    firebase.auth().signOut();
+  },
+
+  addUserToDatabase: function(email, userId){
+    firebase.database().ref('users/' + userId).set({
+      email: email,
+      winCount: 0,
+      lossCount: 0,
+      pieceColor: 'black',
+      profilePic: './img/profile_pic.jpg'
+    })
+  }
+}
+
 //Connects buttons and board positions to respective actions in GameController
 $(document).ready(function(){
   $('#newGame').click(function(){Controller.onClickNewGame(event)})
   // $('#AI').click(function(){GameController.onClickAIGame(event)})
   $('#board .space').click(function(){
     Controller.onClickBoardSpace(event);
-  })
+  });
+//https://youtu.be/-OKrloDzGpU?list=PLl-K7zZEsYLmnJ_FpMOZgyg6XcIGBu2OX
+  $('#loginBtn').click(function(event){
+    AuthController.onClickLogin(event);
+  });
+
+  $('#signUpBtn').click(function(event){
+    AuthController.onClickSignup(event);
+  });
+
+  $('#logoutBtn').click(function(event){
+    AuthController.onClickLogout(event);
+  });
+
+  firebase.auth().onAuthStateChanged(function(firebaseUser){
+    if(firebaseUser){
+      userId = firebase.auth().currentUser.uid;
+      var currentUser = firebase.database().ref('/users/' + userId);
+      currentUser.on('value', function(snapshot) {
+        console.log('Logged in: ' + snapshot.val().email)
+        console.log(snapshot.val());
+        ActivePlayer = snapshot.val();
+        ViewEngine.updateHeader();
+      });
+      $('#logoutBtn').removeClass('hide');
+    } else {
+      console.log('No user logged in')
+      $('#logoutBtn').addClass('hide');
+    }
+  });
+
+  //show color of current player at top of column on hover
   $('#board .space').hover(function(event) {
       var columnNum = event.target.dataset.column;
       if(GameEngine.validMove(columnNum))

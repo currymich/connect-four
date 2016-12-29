@@ -36,7 +36,7 @@ header {
   float: right;
 }
 
-#banner {
+.banner {
   font-size: 3em;
   font-family: 'Roboto';
 }
@@ -144,6 +144,10 @@ header {
   color: rgb(40, 101, 145);
 }
 
+.hide {
+  visibility: hidden;
+}
+
 #newGame {
   display: none;
   float: none;
@@ -151,7 +155,7 @@ header {
 }
 
 @media (max-width: 750px) {
-  #banner {
+  .banner {
     font-size: 1.5em;
   }
   header {
@@ -193,7 +197,7 @@ header {
 }
 
 @media (max-height: 400px){
-  #banner {
+  .banner {
     margin: -1.25em auto 0.15em auto;
   }
 }
