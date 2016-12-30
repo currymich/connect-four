@@ -317,6 +317,7 @@ $(document).ready(function(){
         console.log(snapshot.val());
         ActivePlayer = snapshot.val();
         ViewEngine.updateHeader();
+        GameEngine.togglePlayer();
       });
       $('#logoutBtn').removeClass('hide');
     } else {
