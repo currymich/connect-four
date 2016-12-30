@@ -3,101 +3,40 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Connect Four</title>
     <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+    <title>Connect Four - Login</title>
     <link rel="stylesheet" href="./css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
   <body>
 
-    <header>
-      <img id="p1_pic" class="profile_pic" src="./img/profile_pic.jpg" alt="./img/profile_pic.jpg">
-      <h4 id="p1_name" class="username">Player 1</h4>
-      <div id="p1_piece" class="piece"></div>
-      <img id="p2_pic" class="profile_pic" src="./img/profile_pic.jpg" alt="./img/profile_pic.jpg">
-      <h4 id="p2_name" class="username">Player 2</h4>
-      <div id="p2_piece" class="piece"></div>
-    </header>
-
     <h1 class="banner">Connect Four!</h1>
 
-    <div id="turnDisplay">
-      <p>Turn:</p>
-      <div class="space"></div>
+    <div id="loginArea" class="wrapper">
+      <input id="emailAddr" class="input" type="email" placeholder="Email"><br>
+
+      <input id="password" class="input" type="password" placeholder="Password"><br>
+
+      <button id="loginBtn" class="btn">Login</button>
+      <button id="signUpBtn" class="btn">Sign Up</button>
     </div>
 
-    <div id="addPiece">
-      <div data-column="0" class="space"></div>
-      <div data-column="1" class="space"></div>
-      <div data-column="2" class="space"></div>
-      <div data-column="3" class="space"></div>
-      <div data-column="4" class="space"></div>
-      <div data-column="5" class="space"></div>
-      <div data-column="6" class="space"></div>
-    </div>
-
-    <div id="board">
-      <div class="column">
-        <div data-row="5" data-column="0" class="space"></div>
-        <div data-row="4" data-column="0" class="space"></div>
-        <div data-row="3" data-column="0" class="space"></div>
-        <div data-row="2" data-column="0" class="space"></div>
-        <div data-row="1" data-column="0" class="space"></div>
-        <div data-row="0" data-column="0" class="space"></div>
-      </div>
-      <div class="column">
-        <div data-row="5" data-column="1" class="space"></div>
-        <div data-row="4" data-column="1" class="space"></div>
-        <div data-row="3" data-column="1" class="space"></div>
-        <div data-row="2" data-column="1" class="space"></div>
-        <div data-row="1" data-column="1" class="space"></div>
-        <div data-row="0" data-column="1" class="space"></div>
-      </div>
-      <div class="column">
-        <div data-row="5" data-column="2" class="space"></div>
-        <div data-row="4" data-column="2" class="space"></div>
-        <div data-row="3" data-column="2" class="space"></div>
-        <div data-row="2" data-column="2" class="space"></div>
-        <div data-row="1" data-column="2" class="space"></div>
-        <div data-row="0" data-column="2" class="space"></div>
-      </div>
-      <div class="column">
-        <div data-row="5" data-column="3" class="space"></div>
-        <div data-row="4" data-column="3" class="space"></div>
-        <div data-row="3" data-column="3" class="space"></div>
-        <div data-row="2" data-column="3" class="space"></div>
-        <div data-row="1" data-column="3" class="space"></div>
-        <div data-row="0" data-column="3" class="space"></div>
-      </div>
-      <div class="column">
-        <div data-row="5" data-column="4" class="space"></div>
-        <div data-row="4" data-column="4" class="space"></div>
-        <div data-row="3" data-column="4" class="space"></div>
-        <div data-row="2" data-column="4" class="space"></div>
-        <div data-row="1" data-column="4" class="space"></div>
-        <div data-row="0" data-column="4" class="space"></div>
-      </div>
-      <div class="column">
-        <div data-row="5" data-column="5" class="space"></div>
-        <div data-row="4" data-column="5" class="space"></div>
-        <div data-row="3" data-column="5" class="space"></div>
-        <div data-row="2" data-column="5" class="space"></div>
-        <div data-row="1" data-column="5" class="space"></div>
-        <div data-row="0" data-column="5" class="space"></div>
-      </div>
-      <div class="column">
-        <div data-row="5" data-column="6" class="space"></div>
-        <div data-row="4" data-column="6" class="space"></div>
-        <div data-row="3" data-column="6" class="space"></div>
-        <div data-row="2" data-column="6" class="space"></div>
-        <div data-row="1" data-column="6" class="space"></div>
-        <div data-row="0" data-column="6" class="space"></div>
+    <div id="updateArea" class="wrapper hide">
+      <h2></h2>
+      <button id="logoutBtn" class="btn">Logout</button>
+      <button id="startGame" class="btn">Start Game</button>
+      <br><br><br>
+      <div class="form">
+        <h3>User Info:</h3>
+          <ul>
+          </ul>
+        <input type="text" id="newDisplayName" placeholder="New Display Name"><br>
+        <input type="text" id="colors" placeholder="New Piece Color">
+        </select><br>
+        <button id="submitUpdates" class="btn">Submit</button>
       </div>
     </div>
-
-    <div id="flashMsg"></div>
-    <button class="btn" id="newGame">New Game</button>
 
     <script src="https://code.jquery.com/jquery-3.1.1.js" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>

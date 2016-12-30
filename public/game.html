@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Connect Four</title>
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  </head>
+  <body>
+
+    <header>
+      <img id="p1_pic" class="profile_pic" src="./img/profile_pic.jpg" alt="./img/profile_pic.jpg">
+      <h4 id="p1_name" class="username">Player 1</h4>
+      <div id="p1_piece" class="piece"></div>
+      <img id="p2_pic" class="profile_pic" src="./img/profile_pic.jpg" alt="./img/profile_pic.jpg">
+      <h4 id="p2_name" class="username">Player 2</h4>
+      <div id="p2_piece" class="piece"></div>
+    </header>
+    <button id="profile" class="btn">Profile</button>
+
+    <h1 class="banner">Connect Four!</h1>
+
+    <div id="turnDisplay">
+      <p>Turn:</p>
+      <div class="space"></div>
+    </div>
+
+    <div id="addPiece">
+      <div data-column="0" class="space"></div>
+      <div data-column="1" class="space"></div>
+      <div data-column="2" class="space"></div>
+      <div data-column="3" class="space"></div>
+      <div data-column="4" class="space"></div>
+      <div data-column="5" class="space"></div>
+      <div data-column="6" class="space"></div>
+    </div>
+
+    <div id="board">
+      <div class="column">
+        <div data-row="5" data-column="0" class="space"></div>
+        <div data-row="4" data-column="0" class="space"></div>
+        <div data-row="3" data-column="0" class="space"></div>
+        <div data-row="2" data-column="0" class="space"></div>
+        <div data-row="1" data-column="0" class="space"></div>
+        <div data-row="0" data-column="0" class="space"></div>
+      </div>
+      <div class="column">
+        <div data-row="5" data-column="1" class="space"></div>
+        <div data-row="4" data-column="1" class="space"></div>
+        <div data-row="3" data-column="1" class="space"></div>
+        <div data-row="2" data-column="1" class="space"></div>
+        <div data-row="1" data-column="1" class="space"></div>
+        <div data-row="0" data-column="1" class="space"></div>
+      </div>
+      <div class="column">
+        <div data-row="5" data-column="2" class="space"></div>
+        <div data-row="4" data-column="2" class="space"></div>
+        <div data-row="3" data-column="2" class="space"></div>
+        <div data-row="2" data-column="2" class="space"></div>
+        <div data-row="1" data-column="2" class="space"></div>
+        <div data-row="0" data-column="2" class="space"></div>
+      </div>
+      <div class="column">
+        <div data-row="5" data-column="3" class="space"></div>
+        <div data-row="4" data-column="3" class="space"></div>
+        <div data-row="3" data-column="3" class="space"></div>
+        <div data-row="2" data-column="3" class="space"></div>
+        <div data-row="1" data-column="3" class="space"></div>
+        <div data-row="0" data-column="3" class="space"></div>
+      </div>
+      <div class="column">
+        <div data-row="5" data-column="4" class="space"></div>
+        <div data-row="4" data-column="4" class="space"></div>
+        <div data-row="3" data-column="4" class="space"></div>
+        <div data-row="2" data-column="4" class="space"></div>
+        <div data-row="1" data-column="4" class="space"></div>
+        <div data-row="0" data-column="4" class="space"></div>
+      </div>
+      <div class="column">
+        <div data-row="5" data-column="5" class="space"></div>
+        <div data-row="4" data-column="5" class="space"></div>
+        <div data-row="3" data-column="5" class="space"></div>
+        <div data-row="2" data-column="5" class="space"></div>
+        <div data-row="1" data-column="5" class="space"></div>
+        <div data-row="0" data-column="5" class="space"></div>
+      </div>
+      <div class="column">
+        <div data-row="5" data-column="6" class="space"></div>
+        <div data-row="4" data-column="6" class="space"></div>
+        <div data-row="3" data-column="6" class="space"></div>
+        <div data-row="2" data-column="6" class="space"></div>
+        <div data-row="1" data-column="6" class="space"></div>
+        <div data-row="0" data-column="6" class="space"></div>
+      </div>
+    </div>
+
+    <div id="flashMsg"></div>
+    <button class="btn" id="newGame">New Game</button>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+    <script src="./js/game.js" charset="utf-8"></script>
+  </body>
+</html>

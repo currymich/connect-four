@@ -224,9 +224,17 @@ const ViewEngine = {
     $('#p1_name').html(`${ActivePlayer.email}`);
     $('#p2_name').html(`${AI.email}`);
   },
+
+  updateProfile: function(){
+    $('.form ul').html(`
+      <li>Display Name: ${ActivePlayer.email}</li>
+      <li>Wins: ${ActivePlayer.winCount}</li>
+      <li>Losses: ${ActivePlayer.lossCount}</li>
+      <li>Piece Color: ${ActivePlayer.pieceColor}</li>`)
+  }
 }
 
-const Controller = {
+const GameController = {
   onClickNewGame: function(event){
     GameEngine.resetGame();
   },
@@ -269,14 +277,16 @@ const AuthController = {
 
     promise.then(function(){
       var userId = auth.currentUser.uid;
-      AuthController.addUserToDatabase(email, userId);
+      DatabaseController.addUserToDatabase(email, userId);
     });
   },
 
   onClickLogout: function(event){
     firebase.auth().signOut();
-  },
+  }
+}
 
+const DatabaseController = {
   addUserToDatabase: function(email, userId){
     firebase.database().ref('users/' + userId).set({
       email: email,
@@ -285,6 +295,17 @@ const AuthController = {
       pieceColor: 'black',
       profilePic: './img/profile_pic.jpg'
     })
+  },
+
+  updateUser: function(){
+    var updates = {};
+    updates['/users/' + userId + '/pieceColor'] = $('#colors').val();
+    $('#colors').val('');
+    if($('#newDisplayName').val()){
+      updates['/users/' + userId + '/email'] = $('#newDisplayName').val();
+      $('#newDisplayName').val('');
+    }
+    return firebase.database().ref().update(updates);
   }
 }
 
@@ -293,11 +314,12 @@ $(document).ready(function(){
   $('#newGame').click(function(){Controller.onClickNewGame(event)})
   // $('#AI').click(function(){GameController.onClickAIGame(event)})
   $('#board .space').click(function(){
-    Controller.onClickBoardSpace(event);
+    GameController.onClickBoardSpace(event);
   });
 //https://youtu.be/-OKrloDzGpU?list=PLl-K7zZEsYLmnJ_FpMOZgyg6XcIGBu2OX
   $('#loginBtn').click(function(event){
     AuthController.onClickLogin(event);
+    ViewEngine.updateProfile();
   });
 
   $('#signUpBtn').click(function(event){
@@ -308,21 +330,35 @@ $(document).ready(function(){
     AuthController.onClickLogout(event);
   });
 
+  $('#startGame').click(function(event){
+    window.location.href='./game.html'
+  });
+
+  $('#submitUpdates').click(function(event){
+    DatabaseController.updateUser();
+  });
+
+  $('#profile').click(function(event){
+    window.location.href='./index.html'
+  })
+
   firebase.auth().onAuthStateChanged(function(firebaseUser){
     if(firebaseUser){
       userId = firebase.auth().currentUser.uid;
       var currentUser = firebase.database().ref('/users/' + userId);
       currentUser.on('value', function(snapshot) {
-        console.log('Logged in: ' + snapshot.val().email)
+        $('#updateArea h2').html('Logged in: ' + snapshot.val().email)
         console.log(snapshot.val());
         ActivePlayer = snapshot.val();
         ViewEngine.updateHeader();
         GameEngine.togglePlayer();
       });
-      $('#logoutBtn').removeClass('hide');
+      $('#loginArea').addClass('hide');
+      $('#updateArea').removeClass('hide');
     } else {
       console.log('No user logged in')
-      $('#logoutBtn').addClass('hide');
+      $('#loginArea').removeClass('hide');
+      $('#updateArea').addClass('hide');
     }
   });
 
