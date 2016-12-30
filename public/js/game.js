@@ -319,7 +319,6 @@ $(document).ready(function(){
 //https://youtu.be/-OKrloDzGpU?list=PLl-K7zZEsYLmnJ_FpMOZgyg6XcIGBu2OX
   $('#loginBtn').click(function(event){
     AuthController.onClickLogin(event);
-    ViewEngine.updateProfile();
   });
 
   $('#signUpBtn').click(function(event){
@@ -352,6 +351,7 @@ $(document).ready(function(){
         ActivePlayer = snapshot.val();
         ViewEngine.updateHeader();
         GameEngine.togglePlayer();
+        ViewEngine.updateProfile();
       });
       $('#loginArea').addClass('hide');
       $('#updateArea').removeClass('hide');
