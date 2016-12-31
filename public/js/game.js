@@ -34,8 +34,9 @@ const GameEngine = {
   },
 
   togglePlayer: function(){
-    if(this.currentPlayer == ActivePlayer){
+    if(this.currentPlayer == ActivePlayer && this.gameOver == false){
       this.currentPlayer = AI;
+      GameEngine.aiMove();
     } else {
       this.currentPlayer = ActivePlayer;
     }
@@ -180,14 +181,29 @@ const GameEngine = {
     };
     ViewEngine.flashMessage('clear');
     ViewEngine.resetBoard();
+    if(this.currentPlayer == AI){
+      GameEngine.aiMove();
+    }
   },
 
 
-  // aiMove: function(){
-  //
-  // },
+  aiMove: function(){
+    if(GameEngine.gameOver == false){
+      var columnNum = GameEngine.aiDecide();
+      if(GameEngine.validMove(columnNum)){
+        window.setTimeout(function(){GameEngine.makeMove(columnNum)}, 400);
+      } else {
+        console.log('bad move')
+        GameEngine.aiMove()
+      }
+    }
+  },
 
-  // aiDecide: function(){},
+  aiDecide: function(){
+    var randomMove = Math.floor(Math.random()*7);
+    console.log('random try')
+    return randomMove;
+  },
 
 }
 
@@ -311,8 +327,10 @@ const DatabaseController = {
 
 //Connects buttons and board positions to respective actions in GameController
 $(document).ready(function(){
-  $('#newGame').click(function(){Controller.onClickNewGame(event)})
-  // $('#AI').click(function(){GameController.onClickAIGame(event)})
+  $('#newGame').click(function(){
+    GameController.onClickNewGame(event)
+  });
+
   $('#board .space').click(function(){
     GameController.onClickBoardSpace(event);
   });
