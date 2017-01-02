@@ -9,7 +9,7 @@ var config = {
 firebase.initializeApp(config);
 
 const AI = {
-  email: 'Computer',
+  displayName: 'Computer',
   winCount: 0,
   lossCount: 0,
   pieceColor: 'red',
@@ -64,7 +64,8 @@ const GameEngine = {
         console.log('win')
         GameEngine.gameOver = true;
         ViewEngine.flashMessage('win');
-        $('#newGame').removeClass('hide')
+        $('#gameButtons').css('display','block')
+        $('#addPiece').css('display', 'none')
         GameEngine.updateWins();
         break;
       case null:
@@ -72,11 +73,11 @@ const GameEngine = {
         GameEngine.gameOver = true;
         ViewEngine.flashMessage('draw');
         GameEngine.togglePlayer();
-        $('#newGame').removeClass('hide')
+        $('#gameButtons').css('display', 'block')
+        $('#addPiece').css('display', 'none')
         break;
       default:
         console.log('next player')
-        $('#newGame').addClass('hide')
         GameEngine.togglePlayer();
     }
   },
@@ -215,7 +216,7 @@ const ViewEngine = {
 
   flashMessage: function(msg){
     if(msg == 'win'){
-      $('#flashMsg').html(`${GameEngine.currentPlayer.email} has won!`)
+      $('#flashMsg').html(`${GameEngine.currentPlayer.displayName} has won!`)
     } else if (msg == 'draw') {
       $('#flashMsg').html(`This match is a draw!`)
     } else if (msg == 'clear') {
@@ -225,7 +226,8 @@ const ViewEngine = {
 
   resetBoard: function(){
     $('#board .space').css('backgroundColor', '#bbb')
-    $('#newGame').css('display', 'none')
+    $('#gameButtons').css('display', 'none')
+    $('#addPiece').css('display', 'block')
   },
 
   turnIndicator: function(columnNum, color){
@@ -238,13 +240,14 @@ const ViewEngine = {
     $('#p2_piece').css('backgroundColor', AI.pieceColor);
     $('#p1_pic').attr('src', ActivePlayer.profilePic);
     $('#p2_pic').attr('src', AI.profilePic);
-    $('#p1_name').html(`${ActivePlayer.email}`);
-    $('#p2_name').html(`${AI.email}`);
+    $('#p1_name').html(`${ActivePlayer.displayName}`);
+    $('#p2_name').html(`${AI.displayName}`);
   },
 
   updateProfile: function(){
     $('.form ul').html(`
-      <li>Display Name: ${ActivePlayer.email}</li>
+      <li>Display Name: ${ActivePlayer.displayName}</li>
+      <li>Email: ${ActivePlayer.email}</li>
       <li>Wins: ${ActivePlayer.winCount}</li>
       <li>Losses: ${ActivePlayer.lossCount}</li>
       <li>Piece Color: ${ActivePlayer.pieceColor}</li>`)
@@ -306,6 +309,7 @@ const AuthController = {
 const DatabaseController = {
   addUserToDatabase: function(email, userId){
     firebase.database().ref('users/' + userId).set({
+      displayName: email,
       email: email,
       winCount: 0,
       lossCount: 0,
@@ -319,7 +323,7 @@ const DatabaseController = {
     updates['/users/' + userId + '/pieceColor'] = $('#colors').val();
     $('#colors').val('');
     if($('#newDisplayName').val()){
-      updates['/users/' + userId + '/email'] = $('#newDisplayName').val();
+      updates['/users/' + userId + '/displayName'] = $('#newDisplayName').val();
       $('#newDisplayName').val('');
     }
     return firebase.database().ref().update(updates);
@@ -365,7 +369,7 @@ $(document).ready(function(){
       userId = firebase.auth().currentUser.uid;
       var currentUser = firebase.database().ref('/users/' + userId);
       currentUser.on('value', function(snapshot) {
-        $('#updateArea h2').html('Logged in: ' + snapshot.val().email)
+        $('#updateArea h2').html('Logged in: ' + snapshot.val().displayName)
         console.log(snapshot.val());
         ActivePlayer = snapshot.val();
         ViewEngine.updateHeader();
