@@ -1,14 +1,30 @@
-body {
+html {
   box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
   font-size: 20px;
   text-align: center;
 }
+
+/**************************
+    game.html styling
+      Header/Top Bar
+**************************/
 
 header {
   height: 3.75em;
   width: 100%;
   background-color: #ccc;
   font-family: 'Roboto';
+}
+
+.hide {
+  display: none;
 }
 
 .profile_pic {
@@ -18,7 +34,9 @@ header {
 
 .username {
   font-size: 1em;
-  margin: 1.3em 1em;
+  max-width: 6em;
+  overflow: hidden;
+  margin: 1.3em 0.5em;
 }
 
 .piece {
@@ -51,6 +69,12 @@ header {
   margin: 0 auto;
   padding: 0.3em;
 }
+
+/**************************
+    game.html styling
+      Game Function
+**************************/
+
 
 #turnDisplay {
   margin: 1em auto;
@@ -116,6 +140,19 @@ header {
   background-color: #bbb;
 }
 
+#flashMsg {
+  position: absolute;
+  width: 5em;
+  top: 20em;
+  right: 2.75em;
+  font-size: 2em;
+  font-family: 'Roboto';
+}
+
+/****************************
+      index.html styling
+*****************************/
+
 .wrapper {
   max-width: 60%;
   margin: 4em auto;
@@ -127,25 +164,6 @@ header {
   margin: 0.5em auto;
   border: hidden;
   border-bottom: solid 2px #ccc;
-}
-
-.btn {
-  font-size: 1em;
-  width: 10em;
-  padding: 0.5em 0.25em;
-  margin: .5em;
-  background-color: rgb(18, 61, 158);
-  font-family: 'Roboto';
-  border: none;
-  border-radius: 0.25em;
-  color: #fff;
-  box-shadow: 0.05em 0.05em 0.25em #888;
-}
-
-#signUpBtn, #startGame {
-  background-color: #fff;
-  font-weight: bold;
-  color: rgb(40, 101, 145);
 }
 
 #updateArea input, #updateArea select{
@@ -160,32 +178,47 @@ header {
   margin: 0 auto;
 }
 
-.hide {
+/**************************
+      Button Styling
+**************************/
+
+.btn {
+  font-size: 1em;
+  width: 10em;
+  padding: 0.5em 0.25em;
+  margin: .5em;
+  background-color: rgb(18, 61, 158);
+  font-family: 'Roboto';
+  border: none;
+  border-radius: 0.25em;
+  color: #fff;
+  box-shadow: 0.05em 0.05em 0.25em #888;
+}
+
+#gameButtons {
+  height: 10vw;
+  max-height: 4em;
+  width: 75vw;
+  max-width: 30em;
+  margin: 0.5em auto;
   display: none;
 }
 
-#flashMsg {
-  position: absolute;
-  width: 5em;
-  top: 400px;
-  right: 2.75em;
-  font-size: 2em;
-  font-family: 'Roboto';
-}
-
 #newGame {
-  position: absolute;
-  top: 500px;
-  right: 100px;
+  float: left;
 }
 
 #profile {
-  position: absolute;
-  top: 560px;
-  right: 100px;
+  float: right;
 }
 
-@media (max-width: 750px) {
+#signUpBtn, #startGame {
+  background-color: #fff;
+  font-weight: bold;
+  color: rgb(40, 101, 145);
+}
+
+@media (max-width: 37.5em) {
   .banner {
     font-size: 1.5em;
   }
@@ -220,25 +253,25 @@ header {
   }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 18.5em) {
   .profile_pic {
     display: none;
   }
 
 }
 
-@media (max-height: 400px){
+@media (max-height: 20em){
   .banner {
     margin: -1.25em auto 0.15em auto;
   }
 }
 
-@media (max-width: 750px) and (orientation: landscape){
+@media (max-width: 37.5em) and (orientation: landscape){
   #turnDisplay {
     float: left;
     position: absolute;
-    top: 150px;
-    left: 10px;
+    top: 7.5em;
+    left: 0.5em;
     font-size: 0.75em;
   }
   #flashMsg {
