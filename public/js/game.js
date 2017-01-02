@@ -64,7 +64,7 @@ const GameEngine = {
         console.log('win')
         GameEngine.gameOver = true;
         ViewEngine.flashMessage('win');
-        $('#newGame').css('display', 'block')
+        $('#newGame').removeClass('hide')
         GameEngine.updateWins();
         break;
       case null:
@@ -72,10 +72,11 @@ const GameEngine = {
         GameEngine.gameOver = true;
         ViewEngine.flashMessage('draw');
         GameEngine.togglePlayer();
-        $('#newGame').css('display', 'block')
+        $('#newGame').removeClass('hide')
         break;
       default:
         console.log('next player')
+        $('#newGame').addClass('hide')
         GameEngine.togglePlayer();
     }
   },

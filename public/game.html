@@ -12,16 +12,18 @@
   <body>
 
     <header>
-      <img id="p1_pic" class="profile_pic" src="./img/profile_pic.jpg" alt="./img/profile_pic.jpg">
-      <h4 id="p1_name" class="username">Player 1</h4>
-      <div id="p1_piece" class="piece"></div>
-      <img id="p2_pic" class="profile_pic" src="./img/profile_pic.jpg" alt="./img/profile_pic.jpg">
-      <h4 id="p2_name" class="username">Player 2</h4>
-      <div id="p2_piece" class="piece"></div>
+      <div id="player1">
+        <img id="p1_pic" class="profile_pic" src="./img/profile_pic.jpg" alt="./img/profile_pic.jpg">
+        <h4 id="p1_name" class="username">Player 1</h4>
+        <div id="p1_piece" class="piece"></div>
+      </div>
+      <div id="player2">
+        <img id="p2_pic" class="profile_pic" src="./img/profile_pic.jpg" alt="./img/profile_pic.jpg">
+        <h4 id="p2_name" class="username">Player 2</h4>
+        <div id="p2_piece" class="piece"></div>
+      </div>
+      <h1 class="banner">Connect Four!</h1>
     </header>
-    <button id="profile" class="btn">Profile</button>
-
-    <h1 class="banner">Connect Four!</h1>
 
     <div id="turnDisplay">
       <p>Turn:</p>
@@ -99,6 +101,7 @@
 
     <div id="flashMsg"></div>
     <button class="btn" id="newGame">New Game</button>
+    <button class="btn" id="profile">Profile</button>
 
     <script src="https://code.jquery.com/jquery-3.1.1.js" crossorigin="anonymous"></script>
     <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
