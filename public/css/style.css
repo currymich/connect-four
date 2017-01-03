@@ -233,73 +233,91 @@ header {
   color: rgb(40, 101, 145);
 }
 
-@media (max-width: 37.5em) {
-  .banner {
-    font-size: 1.5em;
+@media (max-width: 900px) {
+  body {
+    font-size: 3vw;
   }
-  header {
-    height: 2.25em;
+
+  #updateArea td {
+    padding: 0 1em;
   }
-  #turnDisplay {
-    display: block;
-    float: none;
+
+  .wrapper {
+    max-width: 60%;
+    margin: 1em auto;
   }
-  .username {
-    margin: 1em;
+
+  .form {
+    width: 20em;
+  }
+
+  .form h3 {
+    margin: 0.5em;
+  }
+
+  #updateArea input {
     font-size: 0.5em;
+    margin: 0em;
   }
-  .piece {
-    width: 1.5em;
-    height: 1.5em;
-    margin: 0.3em;
+
+  .btn {
+    font-size: 0.65em;
   }
+
+  .banner {
+    visibility: hidden;
+  }
+
   #addPiece {
     display: none;
   }
+
   #board {
-    height: 13em;
-    width: 15em;
+    margin: 1.5em auto;
   }
+
+  #flashMsg {
+    font-size: 1.5em;
+  }
+
+  #gameButtons{
+    height: 5vw;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape){
+  body {
+    font-size: 2vw;
+  }
+
+  .banner{
+    visibility: visible;
+  }
+
+  #board {
+    height: 45.5vw;
+    max-height: 26em;
+    width: 52.5vw;
+    max-width: 30em;
+    margin: 0.5em auto;
+  }
+
+  #gameButtons {
+    position: absolute;
+    right: 2em;
+    top: 5em;
+    width: 6.5em;
+  }
+
+  #gameButtons .btn {
+    margin: 0.5em 0;
+  }
+
   #flashMsg {
     font-size: 1em;
-  }
-  .btn {
-    font-size: 0.5em;
-  }
-}
-
-@media (max-width: 18.5em) {
-  .profile_pic {
-    display: none;
-  }
-
-}
-
-@media (max-height: 20em){
-  .banner {
-    margin: -1.25em auto 0.15em auto;
-  }
-}
-
-@media (max-width: 37.5em) and (orientation: landscape){
-  #turnDisplay {
-    float: left;
     position: absolute;
-    top: 7.5em;
-    left: 0.5em;
-    font-size: 0.75em;
-  }
-  #flashMsg {
-    position: absolute;
-    width: 75px;
-    top: 150px;
-    right: 10px;
-    font-size: 0.75em;
-  }
-  #newGame {
-    position: absolute;
-    top: 215px;
-    right: 25px;
-    font-size: 0.5em;
+    top: 10em;
+    right: 2em;
+    width: 6.5em
   }
 }
