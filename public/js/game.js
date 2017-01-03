@@ -301,8 +301,20 @@ const AuthController = {
     const auth = firebase.auth();
 
     const promise = auth.signInWithEmailAndPassword(email, pass);
-    promise.catch(function(error){console.log(error.message)});
-  },
+    promise.catch(function(error){
+      code = error.code;
+      message = error.message;
+    });
+    promise.then(function(){}, function(){
+      code = code.split('-')
+      if(code[1]=='email'){
+        $('#emailAddr').addClass('error')
+      } else if (code[1]=='password') {
+        $('#password').addClass('error')
+      };
+      $('#loginArea div').html(`${message}`)
+  })
+},
 
   onClickSignup: function(event){
     const email = $('#emailAddr').val();
@@ -310,14 +322,31 @@ const AuthController = {
     const pass = $('#password').val();
     $('#password').val('');
     const auth = firebase.auth();
+    var code;
+    var message;
 
     const promise = auth.createUserWithEmailAndPassword(email, pass);
-    promise.catch(function(error){console.log(error.message)});
-
+    promise.catch(function(error){
+      code = error.code;
+      message = error.message;
+    });
     promise.then(function(){
       var userId = auth.currentUser.uid;
       DatabaseController.addUserToDatabase(email, userId);
+    }, function(){
+      code = code.split('-')
+      if(code[1]=='email'){
+        $('#emailAddr').addClass('error')
+      } else if (code[1]=='password') {
+        $('#password').addClass('error')
+      };
+      $('#loginArea div').html(`${message}`)
     });
+  },
+
+  onClickInput: function(event){
+    $('.input').removeClass('error')
+    $('#loginArea div').html('')
   },
 
   onClickLogout: function(event){
@@ -407,6 +436,10 @@ $(document).ready(function(){
 
   $('#profile').click(function(event){
     window.location.href='./index.html'
+  })
+
+  $('.input').click(function(event){
+    AuthController.onClickInput(event);
   })
 
   firebase.auth().onAuthStateChanged(function(firebaseUser){
