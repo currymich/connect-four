@@ -161,11 +161,11 @@ const GameEngine = {
     if(GameEngine.currentPlayer == ActivePlayer){
       ActivePlayer.winCount++;
       updates['/users/' + userId + '/winCount'] = ActivePlayer.winCount;
-      AI.lossCount++;
+      ActivePlayer.totalGames++;
+      updates['/users/' + userId + '/totalGames'] = ActivePlayer.totalGames;
     } else if (GameEngine.currentPlayer == AI) {
-      AI.winCount++;
-      ActivePlayer.lossCount++;
-      updates['/users/' + userId + '/lossCount'] = ActivePlayer.lossCount;
+      ActivePlayer.totalGames++;
+      updates['/users/' + userId + '/totalGames'] = ActivePlayer.totalGames;
     }
     return firebase.database().ref().update(updates);
   },
@@ -245,12 +245,31 @@ const ViewEngine = {
   },
 
   updateProfile: function(){
-    $('.form ul').html(`
-      <li>Display Name: ${ActivePlayer.displayName}</li>
-      <li>Email: ${ActivePlayer.email}</li>
-      <li>Wins: ${ActivePlayer.winCount}</li>
-      <li>Losses: ${ActivePlayer.lossCount}</li>
-      <li>Piece Color: ${ActivePlayer.pieceColor}</li>`)
+    $('.form table').html(`
+      <tr>
+        <td>Display Name: </td>
+        <td>${ActivePlayer.displayName}</td>
+      </tr>
+      <tr>
+        <td>Email: </td>
+        <td>${ActivePlayer.email}</td>
+      </tr>
+      <tr>
+        <td>Wins: </td>
+        <td>${ActivePlayer.winCount}</td>
+      </tr>
+      <tr>
+        <td>Total Games: </td>
+        <td>${ActivePlayer.totalGames}</td>
+      </tr>
+      <tr>
+        <td>Player Rank: </td>
+        <td>${ActivePlayer.rank}</td>
+      </tr>
+      <tr>
+        <td>Piece Color: </td>
+        <td>${ActivePlayer.pieceColor}</td>
+      </tr>`)
   }
 }
 
@@ -265,9 +284,9 @@ const GameController = {
     if(GameEngine.validMove($space.data('column'))){
       GameEngine.makeMove($space.data('column'))
     }
-    var columnNum = event.target.dataset.column;
-    if(GameEngine.validMove(columnNum))
-    ViewEngine.turnIndicator(columnNum, GameEngine.currentPlayer.pieceColor)
+    // var columnNum = event.target.dataset.column;
+    // if(GameEngine.validMove(columnNum))
+    // ViewEngine.turnIndicator(columnNum, GameEngine.currentPlayer.pieceColor)
   },
 
   // onClickAIGame: function(event){}
@@ -312,7 +331,8 @@ const DatabaseController = {
       displayName: email,
       email: email,
       winCount: 0,
-      lossCount: 0,
+      totalGames: 0,
+      rank: '0 of 0',
       pieceColor: 'black',
       profilePic: './img/profile_pic.jpg'
     })
@@ -320,13 +340,38 @@ const DatabaseController = {
 
   updateUser: function(){
     var updates = {};
-    updates['/users/' + userId + '/pieceColor'] = $('#colors').val();
+    if($('#colors').val()){
+      updates['/users/' + userId + '/pieceColor'] = $('#colors').val();
+      ActivePlayer.pieceColor = $('#colors').val()
+    }
     $('#colors').val('');
     if($('#newDisplayName').val()){
       updates['/users/' + userId + '/displayName'] = $('#newDisplayName').val();
-      $('#newDisplayName').val('');
+      ActivePlayer.displayName = $('#newDisplayName').val()
     }
+    $('#newDisplayName').val('');
     return firebase.database().ref().update(updates);
+  },
+
+ //https://firebase.google.com/docs/reference/js/firebase.database.DataSnapshot
+ //http://stackoverflow.com/questions/1069666/sorting-javascript-object-by-property-value
+  updateRank: function(){
+    var updates = {};
+    var scores = {};
+    var rank;
+    var total;
+    var query = firebase.database().ref("users");
+    query.on('value', function(snapshot){
+      snapshot.forEach(function(childSnapshot) {
+        scores[childSnapshot.key] = childSnapshot.val().winCount;
+      });
+      var sortedKeys = Object.keys(scores).sort(function(a,b){return scores[a]-scores[b]}).reverse();
+      rank = sortedKeys.indexOf(firebase.auth().currentUser.uid)+1;
+      total = sortedKeys.length;
+      var formatted = `${rank} of ${total}`;
+      updates['/users/' + userId + '/rank'] = formatted;
+      return firebase.database().ref().update(updates);
+    });
   }
 }
 
@@ -369,8 +414,8 @@ $(document).ready(function(){
       userId = firebase.auth().currentUser.uid;
       var currentUser = firebase.database().ref('/users/' + userId);
       currentUser.on('value', function(snapshot) {
-        $('#updateArea h2').html('Logged in: ' + snapshot.val().displayName)
         console.log(snapshot.val());
+        DatabaseController.updateRank();
         ActivePlayer = snapshot.val();
         ViewEngine.updateHeader();
         GameEngine.togglePlayer();
