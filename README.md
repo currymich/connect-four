@@ -17,7 +17,7 @@
   - [X] Custom color pieces
   - [ ] Save in-progress games
 - [ ] Play with friends remotely
-- [ ] Mobile Friendly
+- [X] Mobile Friendly
 - [X] Single player mode with AI
 
 ### Wireframes:
